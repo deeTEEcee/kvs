@@ -21,7 +21,7 @@ Print the version
 // #[command(propagate_version = true)]
 struct Cli {
 
-    #[arg(short, long, action)]
+    #[arg(short='V', long, action)]
     version: bool,
 
     #[command(subcommand)]
@@ -41,21 +41,26 @@ fn main() {
     let cli = Cli::parse();
 
     if cli.version {
-        // TODO: How to fetch version the same way the clap lib does it
-        println!("Version!")
+        println!("{}", env!("CARGO_PKG_VERSION"))
     }
-    //
-    // // You can check for the existence of subcommands, and if found use their
-    // // matches just as you would the top level cmd
-    // match &cli.command {
-    //     Commands::Set { key, value } => {
-    //         println!("Set cmd")
-    //     }
-    //     Commands::Get { key } => {
-    //         println!("Get cmd")
-    //     }
-    //     Commands::Rm { key } => {
-    //         println!("Get cmd")
-    //     }
-    // }
+    // You can check for the existence of subcommands, and if found use their
+    // matches just as you would the top level cmd
+    else if let Some(cmd) = &cli.command {
+        match cmd {
+            Commands::Set { key, value } => {
+                eprintln!("unimplemented");
+            }
+            Commands::Get { key } => {
+                eprintln!("unimplemented");
+
+            }
+            Commands::Rm { key } => {
+                eprintln!("unimplemented");
+            }
+        }
+        std::process::exit(1)
+    }
+    else {
+        std::process::exit(1)
+    }
 }
