@@ -15,13 +15,11 @@ Print the version
 
 */
 
-
 #[derive(Parser)]
 // #[command(version, about, long_about = None)]
 // #[command(propagate_version = true)]
 struct Cli {
-
-    #[arg(short='V', long, action)]
+    #[arg(short = 'V', long, action)]
     version: bool,
 
     #[command(subcommand)]
@@ -31,9 +29,16 @@ struct Cli {
 #[derive(Subcommand)]
 enum Commands {
     /// Adds files to myapp
-    Set { key: Option<String>, value: Option<String> },
-    Get { key: Option<String>},
-    Rm { key: Option<String>},
+    Set {
+        key: Option<String>,
+        value: Option<String>,
+    },
+    Get {
+        key: Option<String>,
+    },
+    Rm {
+        key: Option<String>,
+    },
 }
 
 fn main() {
@@ -52,15 +57,13 @@ fn main() {
             }
             Commands::Get { key } => {
                 eprintln!("unimplemented");
-
             }
             Commands::Rm { key } => {
                 eprintln!("unimplemented");
             }
         }
         std::process::exit(1)
-    }
-    else {
+    } else {
         std::process::exit(1)
     }
 }
